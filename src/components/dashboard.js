@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Header from './header';
 import CloseIcon from '@mui/icons-material/Close';
 
+// Table style
 const style = {
   position: 'absolute',
   top: '50%',
@@ -24,8 +25,10 @@ const style = {
   pb: 3,
 };
 
+// Rest API end point
 var API_URL="http://localhost:8080";
 
+// Table heading configuration
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'name', headerName: 'Name', width: 300 },
@@ -34,28 +37,33 @@ const columns: GridColDef[] = [
 ];
 
 export default function Dashboard({ setToken }) {
-  const [rows, setRows] = React.useState([]);
-  const [openFormInput, setOpenFormInput] = React.useState(false);
-  const [openFormUpdate, setOpenFormUpdate] = React.useState(false);
-  const [idSelected, setIdSelected] = React.useState(0);
-  const [nameSelected, setNameSelected] = React.useState();
-  const [quantitySelected, setQuantitySelected] = React.useState();
-  const [priceSelected, setPriceSelected] = React.useState();
+  const [rows, setRows] = React.useState([]); //state for row in table
+  const [openFormInput, setOpenFormInput] = React.useState(false); //state for modal form input
+  const [openFormUpdate, setOpenFormUpdate] = React.useState(false); //state for modal form update and delete
+  const [idSelected, setIdSelected] = React.useState(0); //id of selected row
+  const [nameSelected, setNameSelected] = React.useState(); //name of selected row
+  const [quantitySelected, setQuantitySelected] = React.useState(); //quantity of selected row
+  const [priceSelected, setPriceSelected] = React.useState(); //price of selected row
 
+  //method for open form modal input new stock
   const handleOpenFormInput = () => {
     setOpenFormInput(true);
   };
+  //method for close form modal input new stock
   const handleCloseFormInput = () => {
     setOpenFormInput(false);
   };
 
+  //method for open form modal update and delete stock
   const handleOpenFormUpdate = () => {
     setOpenFormUpdate(true);
   };
+  //method for delete form modal update and delete stock
   const handleCloseFormUpdate = () => {
     setOpenFormUpdate(false);
   };
 
+ //method for get all stock in database
   const getStockList = () =>{
     let stockList = [];
      axios.get(`${API_URL}/api/stock/`)
@@ -72,6 +80,7 @@ export default function Dashboard({ setToken }) {
       .then(() => setRows(stockList))
   }
 
+  //method for get all stock in database
   const addStockList = (e) =>{
     e.preventDefault();
 
@@ -97,6 +106,7 @@ export default function Dashboard({ setToken }) {
       handleCloseFormInput();
   }
 
+  //method for update stock in database
   const updateStockList = (e) =>{
     e.preventDefault();
 
@@ -119,6 +129,7 @@ export default function Dashboard({ setToken }) {
       handleCloseFormUpdate()
   }
 
+  // method for delete stock in database
   const deleteStockList = () =>{
     console.log(idSelected)
     let stockList = [...rows];
@@ -131,6 +142,7 @@ export default function Dashboard({ setToken }) {
       .then(() => setRows(stockList))
   }
 
+  //get all stock list for the first render
   React.useEffect(() => {
       getStockList()
     }, []

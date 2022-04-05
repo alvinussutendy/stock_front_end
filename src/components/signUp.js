@@ -15,8 +15,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+// Rest API end point
 var API_URL="http://localhost:8080";
 
+//method that call end point for register
 async function register(credentials){
 	return axios.post(`${API_URL}/api/users/add`, {
 		username: credentials.username,
@@ -27,6 +29,7 @@ async function register(credentials){
 	);
 }
 
+//Copyright component
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -40,10 +43,12 @@ function Copyright(props) {
   );
 }
 
+//get material UI form style
 const theme = createTheme();
 
 export default function SignUp({ setToken }){
 
+  //Method for call register method and set token into browser local storage
 	const handleSubmit = async e => {
 		e.preventDefault();
 
@@ -114,7 +119,7 @@ export default function SignUp({ setToken }){
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I want to receive updates via email."
                 />
               </Grid>
             </Grid>
@@ -141,6 +146,7 @@ export default function SignUp({ setToken }){
   );
 }
 
+//use setToken prop in the component
 SignUp.propTypes = {
 	setToken: PropTypes.func.isRequired
 }

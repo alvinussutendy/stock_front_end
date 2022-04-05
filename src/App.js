@@ -8,8 +8,9 @@ import Dashboard from './components/dashboard';
 import useToken from './components/useToken';
 
 function App() {
-  const { token, setToken } = useToken();
+  const { token, setToken } = useToken(); //state for the token in storage, is exists or not
 
+  //call if the token isn't exists
   if(!token){
     return (
       <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
     )
   }
 
+  //call if the token is exists
   return (
     <BrowserRouter>
       <Routes>

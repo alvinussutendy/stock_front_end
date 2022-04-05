@@ -15,8 +15,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+// Rest API end point
 var API_URL="http://localhost:8080";
 
+//method that call end point for authentication
 async function login(credentials){
 	return axios.post(`${API_URL}/api/users/`, {
 		username: credentials.username,
@@ -26,6 +28,7 @@ async function login(credentials){
 	);
 }
 
+//Copyright component
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -39,10 +42,12 @@ function Copyright(props) {
   );
 }
 
+//get material UI form style
 const theme = createTheme();
 
 export default function SignIn({ setToken }){
 
+  //Method for call login method and set token into browser local storage
 	const handleSubmit = async e => {
 		e.preventDefault();
 
@@ -52,7 +57,6 @@ export default function SignIn({ setToken }){
 			password: data.get('password')
 		});
     setToken(data.get('username'));
-		// setToken(token);
 	}
 
 	return (
@@ -71,7 +75,7 @@ export default function SignIn({ setToken }){
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -107,11 +111,6 @@ export default function SignIn({ setToken }){
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                {/*<Link href="#" variant="body2">
-                  Forgot password?
-                </Link>*/}
-              </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -126,6 +125,7 @@ export default function SignIn({ setToken }){
   );
 }
 
+//use setToken prop in the component
 SignIn.propTypes = {
 	setToken: PropTypes.func.isRequired
 }
